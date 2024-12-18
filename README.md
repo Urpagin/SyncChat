@@ -6,15 +6,17 @@ Also available on SpigotMC.
 
 SyncChat provides an interface between the chat functionality of a Minecraft server and a Discord channel.
 
-Here is a demo:
+Here is an (old) demo:
 
 [Demo Video](https://github.com/Urpagin/DiscordLink/assets/72459611/ea6bf913-1dd4-4ba0-9f50-2040549207d3)
 
 ## 🏃‍♂️ Getting Started
 
-SyncChat is built on top of Spigot and is compatible with PaperMC onwards. Currently, it is only available for Minecraft version 1.21.
+> [!IMPORTANT]
+> - Currently, SyncChat is built & tested for <ins>**Minecraft 1.21.4**</ins> (it may not work for prior version)
+> - SyncChat is built with the Spigot API and is compatible with Spigot and PaperMC servers onwards.
 
-### Installation Steps
+### 👍 Installation Steps
 
 1. Download the `.jar` release file and place it in the `plugins` directory on your server.
 2. Launch the server once to generate the config file at `./plugins/SyncChat/config.yml`.
