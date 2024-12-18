@@ -1,4 +1,4 @@
-package net.urpagin.discordlink;
+package net.urpagin.syncchat;
 
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
@@ -7,9 +7,9 @@ import net.dv8tion.jda.api.entities.channel.concrete.TextChannel;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.dv8tion.jda.api.interactions.commands.build.Commands;
 import net.dv8tion.jda.api.requests.GatewayIntent;
-import net.urpagin.discordlink.discord.listeners.DiscordCommandListener;
-import net.urpagin.discordlink.discord.listeners.DiscordMessageListener;
-import net.urpagin.discordlink.minecraft.listeners.TimeWatcher;
+import net.urpagin.syncchat.discord.listeners.DiscordCommandListener;
+import net.urpagin.syncchat.discord.listeners.DiscordMessageListener;
+import net.urpagin.syncchat.minecraft.listeners.TimeWatcher;
 import org.bukkit.Bukkit;
 import org.bukkit.Server;
 import org.bukkit.plugin.java.JavaPlugin;

@@ -1,7 +1,7 @@
-package net.urpagin.discordlink.minecraft.listeners;
+package net.urpagin.syncchat.minecraft.listeners;
 
-import net.urpagin.discordlink.DiscordLink;
-import net.urpagin.discordlink.ReadConfig;
+import net.urpagin.syncchat.SyncChat;
+import net.urpagin.syncchat.ReadConfig;
 import org.bukkit.attribute.Attribute;
 import org.bukkit.attribute.AttributeInstance;
 import org.bukkit.entity.Player;
@@ -34,7 +34,7 @@ public class MinecraftChatListener implements Listener {
     }
 
     private String getPlayerHealthString(Player player) {
-        AttributeInstance playerMaxHealthAttr = player.getAttribute(Attribute.GENERIC_MAX_HEALTH);
+        AttributeInstance playerMaxHealthAttr = player.getAttribute(Attribute.MAX_HEALTH);
         if (playerMaxHealthAttr == null) return "";
 
         double playerHealth = player.getHealth();
@@ -69,7 +69,7 @@ public class MinecraftChatListener implements Listener {
         }
 
 
-        boolean isMessageSentSuccessfully = DiscordLink.discord.sendMessageToChannel(discordMessage);
+        boolean isMessageSentSuccessfully = SyncChat.discord.sendMessageToChannel(discordMessage);
 
         if (isMessageSentSuccessfully) event.setMessage(DISCORD_BOUND_FORMATTING + message);
         else event.setMessage(DISCORD_BOUND_FORMATTING_ERROR + message);

@@ -1,4 +1,4 @@
-package net.urpagin.discordlink.discord.listeners;
+package net.urpagin.syncchat.discord.listeners;
 
 import net.dv8tion.jda.api.entities.Member;
 import net.dv8tion.jda.api.entities.MessageType;

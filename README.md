@@ -1,6 +1,6 @@
-# DiscordLink
+# SyncChat
 
-DiscordLink provides an interface between the chat functionality of a Minecraft server and a Discord channel.
+SyncChat provides an interface between the chat functionality of a Minecraft server and a Discord channel.
 
 Here is a demo:
 
@@ -8,12 +8,12 @@ Here is a demo:
 
 ## 🏃‍♂️ Getting Started
 
-DiscordLink is built on top of Spigot and is compatible with PaperMC onwards. Currently, it is only available for Minecraft version 1.21.
+SyncChat is built on top of Spigot and is compatible with PaperMC onwards. Currently, it is only available for Minecraft version 1.21.
 
 ### Installation Steps
 
 1. Download the `.jar` release file and place it in the `plugins` directory on your server.
-2. Launch the server once to generate the config file at `./plugins/DiscordLink/config.yml`.
+2. Launch the server once to generate the config file at `./plugins/SyncChat/config.yml`.
 3. Populate the `config.yml` with your Discord bot token and a channel ID.
 4. Restart the server.
 5. Enjoy!

@@ -1,4 +1,4 @@
-package net.urpagin.discordlink.minecraft.listeners;
+package net.urpagin.syncchat.minecraft.listeners;
 
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

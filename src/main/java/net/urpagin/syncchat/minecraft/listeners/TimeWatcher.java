@@ -1,6 +1,6 @@
-package net.urpagin.discordlink.minecraft.listeners;
+package net.urpagin.syncchat.minecraft.listeners;
 
-import net.urpagin.discordlink.DiscordInterface;
+import net.urpagin.syncchat.DiscordInterface;
 import org.bukkit.World;
 import org.bukkit.scheduler.BukkitRunnable;
 

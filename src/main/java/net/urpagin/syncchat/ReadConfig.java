@@ -1,4 +1,4 @@
-package net.urpagin.discordlink;
+package net.urpagin.syncchat;
 
 import org.bukkit.plugin.java.JavaPlugin;
 

@@ -1,7 +1,7 @@
-name: DiscordLink
+name: SyncChat
 version: '${version}'
-main: net.urpagin.discordlink.DiscordLink
+main: net.urpagin.syncchat.SyncChat
 api-version: '1.21'
 author: 'Urpagin'
 description: This plugins links your Minecraft server to your Discord guild!
-prefix: 'DiscordLink'
+prefix: 'SyncChat'

@@ -1,6 +1,6 @@
-package net.urpagin.discordlink.minecraft.listeners;
+package net.urpagin.syncchat.minecraft.listeners;
 
-import net.urpagin.discordlink.DiscordInterface;
+import net.urpagin.syncchat.DiscordInterface;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerQuitEvent;

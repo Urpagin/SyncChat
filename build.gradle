@@ -11,7 +11,7 @@ var jdaVersion = "5.0.0-beta.24"
 
 // Do not remove, otherwise shadow will break.
 application {
-    mainClass = 'net.urpagin.discordlink.DiscordLink'
+    mainClass = 'net.urpagin.syncchat.SyncChat'
 }
 
 repositories {
@@ -31,7 +31,7 @@ repositories {
 }
 
 dependencies {
-    compileOnly 'org.spigotmc:spigot-api:1.21-R0.1-SNAPSHOT'
+    compileOnly 'org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT'
     implementation "net.dv8tion:JDA:$jdaVersion"
     //compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
 }

@@ -1,6 +1,6 @@
-package net.urpagin.discordlink.minecraft.listeners;
+package net.urpagin.syncchat.minecraft.listeners;
 
-import net.urpagin.discordlink.DiscordLink;
+import net.urpagin.syncchat.SyncChat;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.entity.PlayerDeathEvent;
@@ -21,7 +21,7 @@ public class MinecraftPlayerDeathListener implements Listener {
 
         String discordMessage = String.format("%s **%s** %s", DISCORD_DEATH_MESSAGE_EMOJI, deathMessage, DISCORD_DEATH_MESSAGE_EMOJI);
 
-        boolean isMessageSentSuccessfully = DiscordLink.discord.sendMessageToChannel(discordMessage);
+        boolean isMessageSentSuccessfully = SyncChat.discord.sendMessageToChannel(discordMessage);
 
         if (!isMessageSentSuccessfully) getLogger().warning("Could not send death message to Discord.");
 

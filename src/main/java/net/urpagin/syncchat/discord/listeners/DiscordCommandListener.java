@@ -1,9 +1,9 @@
-package net.urpagin.discordlink.discord.listeners;
+package net.urpagin.syncchat.discord.listeners;
 
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
-import net.urpagin.discordlink.DiscordInterface;
-import net.urpagin.discordlink.minecraft.listeners.MinecraftPlayerConnectionTracker;
+import net.urpagin.syncchat.DiscordInterface;
+import net.urpagin.syncchat.minecraft.listeners.MinecraftPlayerConnectionTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
 import org.bukkit.Statistic;
@@ -173,7 +173,6 @@ public class DiscordCommandListener extends ListenerAdapter {
     private long getHoursFromTicks(int ticks) {
         return ticks / 20 / 60 / 60; // Because 20 ticks is 1 second.
     }
-
 
     private void handleBecomeAGod(SlashCommandInteractionEvent event) {
         String response = String.format("%s%s%s%s blud be trippin frfr %s%s%s", MAN_SPEAKING_EMOJI, MAN_SPEAKING_EMOJI, FIRE_EMOJI, FIRE_EMOJI, SKULL_EMOJI, SKULL_EMOJI, SKULL_EMOJI);

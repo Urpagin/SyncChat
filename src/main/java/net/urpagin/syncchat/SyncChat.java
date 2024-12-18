@@ -1,10 +1,10 @@
-package net.urpagin.discordlink;
+package net.urpagin.syncchat;
 
-import net.urpagin.discordlink.minecraft.listeners.*;
+import net.urpagin.syncchat.minecraft.listeners.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public final class DiscordLink extends JavaPlugin implements Listener {
+public final class SyncChat extends JavaPlugin implements Listener {
 
     public static DiscordInterface discord;
 
@@ -19,7 +19,7 @@ public final class DiscordLink extends JavaPlugin implements Listener {
     public void onEnable() {
         long startTime = System.nanoTime();
 
-        // Is this ok to do?
+        // Is this fine?
         new ReadConfig(this); // Initialize the class for static use.
 
         // Register event listeners
