@@ -1,5 +1,6 @@
 package net.urpagin.syncchat;
 
+import net.urpagin.syncchat.exceptions.InvalidConfigException;
 import net.urpagin.syncchat.minecraft.listeners.*;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -19,8 +20,16 @@ public final class SyncChat extends JavaPlugin implements Listener {
     public void onEnable() {
         long startTime = System.nanoTime();
 
-        // Is this fine?
-        new ReadConfig(this); // Initialize the class for static use.
+        // Try to read in-memory the config.yml and check for values.
+        // If there is a problem, we quit the plugin.
+        try {
+            new ReadConfig(this); // Initialize the class for static use.
+        } catch (InvalidConfigException e) {
+            this.getLogger().severe(e.getMessage());
+            this.getLogger().severe("Config error. Plugin stopped.");
+            this.getPluginLoader().disablePlugin(this);
+            return;
+        }
 
         // Register event listeners
         getServer().getPluginManager().registerEvents(new MinecraftChatListener(), this);
