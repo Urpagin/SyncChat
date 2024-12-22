@@ -44,5 +44,5 @@ The plugin interacts with Discord through the [JDA](https://github.com/discord-j
 - [ ] Send a Discord message when a player exits (configurable toggle)
 - [ ] Send a Discord message when a player earns an achievement (configurable toggle)
 - [ ] Update demo video
-- [ ] `/playing` slashcommand customizable in config
-- [ ] `/deaths` slashcommand customizable in config
+- [ ] `/playing` message format customizable in config
+- [ ] `/deaths` message format customizable in config
