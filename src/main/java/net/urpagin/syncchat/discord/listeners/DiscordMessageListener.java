@@ -5,6 +5,9 @@ import net.dv8tion.jda.api.entities.MessageType;
 import net.dv8tion.jda.api.entities.emoji.Emoji;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import net.urpagin.syncchat.ReadConfig;
+
+import java.util.HashMap;
 
 import static org.bukkit.Bukkit.getServer;
 
@@ -16,9 +19,6 @@ public class DiscordMessageListener extends ListenerAdapter {
 
     // Max length of a Minecraft chat message.
     private static final int MINECRAFT_CHAT_MAX_MSG_LENGTH = 256;
-
-    // Formatting set to messages coming from Discord to the MC Chat.
-    private static final String MINECRAFT_BOUND_FORMATTING = "§l§b"; // bold aqua
 
     // Emoji for error reactions
     private static final String DISCORD_ERROR_REPLY_REACTION_EMOJI = "❌"; // Red cross emoji (X)
@@ -36,7 +36,7 @@ public class DiscordMessageListener extends ListenerAdapter {
     // GUILD_NICKNAME is the nickname someone has on a guild.
     // GLOBAL_NICKNAME is the name that you choose everyone will see on Discord.
     // GLOBAL_USERNAME is your Discord handle: e.g: @urpagin.
-    private enum UsernameType {
+    public enum UsernameType {
         GUILD_NICKNAME, GLOBAL_NICKNAME, GLOBAL_USERNAME
     }
 
@@ -67,15 +67,25 @@ public class DiscordMessageListener extends ListenerAdapter {
             return;
         }
 
-        String authorName = getEventAuthorName(event, UsernameType.GUILD_NICKNAME);
+        String authorName = getEventAuthorName(event, ReadConfig.getDiscordUsernameType());
         String authorMessage = event.getMessage().getContentRaw();
 
-        if (authorMessage.length() > MINECRAFT_CHAT_MAX_MSG_LENGTH) {
-            discordErrorReply(event, "The message length is greater than " + MINECRAFT_CHAT_MAX_MSG_LENGTH + " characters! Cannot send to MC Chat.");
-            return;
-        }
+        // To use the .format() method then.
+        HashMap<String, String> values = new HashMap<>();
+        values.put(ReadConfig.NAME_KEY, authorName);
+        values.put(ReadConfig.MESSAGE_KEY, authorMessage);
 
-        String messageToSend = String.format("%s<%s> %s", MINECRAFT_BOUND_FORMATTING, authorName, authorMessage);
-        getServer().broadcastMessage(messageToSend);
+        try {
+            String message = ReadConfig.format(ReadConfig.getMinecraftMessageFormatting(), values);
+            if (message.length() > MINECRAFT_CHAT_MAX_MSG_LENGTH) {
+                discordErrorReply(event, "The message length is greater than " + MINECRAFT_CHAT_MAX_MSG_LENGTH + " characters! Cannot send to MC Chat.");
+                return;
+            }
+            getServer().broadcastMessage(message);
+
+
+        } catch (Exception e) {
+            // Do nothing
+        }
     }
 }

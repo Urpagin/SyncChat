@@ -24,8 +24,9 @@ public final class SyncChat extends JavaPlugin implements Listener {
 
         // Try to read in-memory the config.yml and check for values.
         // If there is a problem, we quit the plugin.
+        ReadConfig config;
         try {
-            new ReadConfig(this); // Initialize the class for static use.
+            config = new ReadConfig(this); // Initialize the class for static use.
         } catch (InvalidConfigException e) {
             this.getLogger().severe(e.getMessage());
             this.getLogger().severe("Config error. Plugin stopped.");

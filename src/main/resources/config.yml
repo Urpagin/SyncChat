@@ -13,4 +13,59 @@ discord_channel_id: -1
 # Add prefixes that should trigger sending messages. For example, use ";" or ".".
 # To send ALL chat messages to Discord, leave this list empty (i.e., minecraft_chat_prefixes: [])
 # Note: only the first character of the prefix will be used. So for 'prefix' the program will only test the MC chat message against 'p'.
-minecraft_chat_prefixes: [';', ',', ':', '!']
+minecraft_chat_prefixes: [ ';', ',', ':', '!' ]
+
+# To format messages you can use {variable} to show, for instance, the player name with {name} or the content
+# of the message with {message}.
+# Unknown variables will intentionally crash the plugin.
+# If you use {unknownVariable} the plugin will not start.
+
+# IMPORTANT: the {connectedElapsedTime} variable in the playing-slash-command-line is only
+# usable in playing-slash-command-line, nowhere else. This is the same for all other variables!!
+# e.g.: you cannot use {wholeMessage} in the discord-formatting.message category
+
+
+# You can use any Discord text formatting:
+# https://support.discord.com/hc/en-us/articles/210298617-Markdown-Text-101-Chat-Formatting-Bold-Italic-Underline
+discord-formatting:
+  # A Minecraft player message to the Discord channel.
+  message: '**<{name}>** {message}  |  *{health}*'
+
+  # The header of the /playing Discord slash-command.
+  playing-slash-command-header: '## :woman_wearing_turban_tone5: Online Player List :person_wearing_turban_tone3:'
+
+  # All individual lines of the /playing Discord slash-command.
+  playing-slash-command-line: '- **{name}** (connected for {connectedElapsedTime})'
+
+  # The message send when there are no players connected to the Minecraft server.
+  playing-slash-command-no-players: ":empty_nest::empty_nest: **No one is connected!** :empty_nest::empty_nest:"
+
+  # The header of the /deaths Discord slash-command.
+  deaths-slash-command-header: '## :skull: Deaths Leaderboard :skull:'
+
+  # All individual lines of the /deaths Discord slash-command.
+  # The {plural} variable is either "" or "s" if there are multiple entries.
+  # Which allows for making the plural of some words (like "time" to "times").
+  deaths-slash-command-line: '- {name} died **{deathCount}** time{plural} ({playtimeHours}h)'
+
+  # The message when there are no deaths.
+  deaths-slash-command-no-deaths: ":smile: No one died! Yet... :smiling_imp:"
+
+
+# You can use custom colors using Minecraft formatting codes:
+# https://minecraft.fandom.com/wiki/Formatting_codes
+# I set the default to have a light purple (§d) message.
+minecraft-formatting:
+  # A Discord user message to the MC chat.
+  message: '<{name}> §d{message}'
+
+  # The username that will be shown in the Minecraft chat when a Discord user sends a message in the channel.
+  # 1: (guild nickname) is the nickname someone has on a guild.
+  # 2: (global nickname) is the name that you choose everyone will see on Discord.
+  # 3: (global username) is your Discord handle: e.g: @urpagin.
+  discord-username-type: 1
+
+  # When you send a prefixed message on the Minecraft chat, it can appear differently on
+  # the Minecraft chat. I set the default to have a bold (§l) message.
+  # {wholeMessage} is the content of the message.
+  sent-message: '§l{wholeMessage}'

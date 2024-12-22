@@ -3,6 +3,7 @@ package net.urpagin.syncchat.discord.listeners;
 import net.dv8tion.jda.api.events.interaction.command.SlashCommandInteractionEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import net.urpagin.syncchat.DiscordInterface;
+import net.urpagin.syncchat.ReadConfig;
 import net.urpagin.syncchat.minecraft.listeners.MinecraftPlayerConnectionTracker;
 import org.bukkit.Bukkit;
 import org.bukkit.OfflinePlayer;
@@ -20,11 +21,6 @@ public class DiscordCommandListener extends ListenerAdapter {
 
     final static String SKULL_EMOJI = "\uD83D\uDC80";
     final static String CROSSBONES_EMOJI = "☠\uFE0F";
-    final static String TURBAN_A_EMOJI = "\uD83D\uDC73\uD83C\uDFFF\u200D♀\uFE0F";
-    final static String TURBAN_B_EMOJI = "\uD83D\uDC73\uD83C\uDFFD";
-    final static String EMPTY_NEST_EMOJI = "\uD83E\uDEB9";
-    final static String SMILE_EMOJI = "\uD83D\uDE04";
-    final static String WICKED_IMP_EMOJI = "\uD83D\uDE08";
     final static String MAN_SPEAKING_EMOJI = "\uD83D\uDDE3\uFE0F";
     final static String FIRE_EMOJI = "\uD83D\uDD25";
 
@@ -64,18 +60,30 @@ public class DiscordCommandListener extends ListenerAdapter {
 
     private String getPlayingString() {
         List<Player> onlinePlayerList = new ArrayList<>(getServer().getOnlinePlayers());
-        StringBuilder responseBuilder = new StringBuilder(String.format("## %s Online Player List %s\n", TURBAN_A_EMOJI, TURBAN_B_EMOJI));
 
         if (onlinePlayerList.isEmpty()) {
-            responseBuilder.append(String.format("%s%s **No one is connected!** %s%s", EMPTY_NEST_EMOJI, EMPTY_NEST_EMOJI, EMPTY_NEST_EMOJI, EMPTY_NEST_EMOJI));
-            return responseBuilder.toString();
+            return ReadConfig.getDiscordPlayingSlashCommandNoPlayers();
         }
+
+        // The main string.
+        StringBuilder responseBuilder = new StringBuilder(ReadConfig.getDiscordPlayingSlashCommandHeaderFormatting() + "\n");
 
         Map<Player, String> playersElapsedTime = getPlayersElapsedTime();
         for (Map.Entry<Player, String> entry : playersElapsedTime.entrySet()) {
             String playerName = entry.getKey().getName();
             String elapsedTime = entry.getValue();
-            responseBuilder.append("- **").append(playerName).append("** (connected for ").append(elapsedTime).append(")\n");
+
+            // To use in the ReadConfig.format() method.
+            HashMap<String, String> values = new HashMap<>();
+            values.put(ReadConfig.NAME_KEY, playerName);
+            values.put(ReadConfig.CONNECTED_ELAPSED_TIME, elapsedTime);
+
+            try {
+                String line = ReadConfig.format(ReadConfig.getDiscordPlayingSlashCommandLineFormatting(), values) + "\n";
+                responseBuilder.append(line);
+            } catch (Exception e) {
+                // Do nothing
+            }
         }
 
         String plural1 = (onlinePlayerList.size() > 1) ? "are" : "is";
@@ -126,7 +134,7 @@ public class DiscordCommandListener extends ListenerAdapter {
         }
 
         if (allPlayerNames.isEmpty()) {
-            return String.format("%s No one died! Yet... %s", SMILE_EMOJI, WICKED_IMP_EMOJI);
+            return ReadConfig.getDiscordDeathsSlashCommandNoDeaths();
         }
 
         // Map of username to death count
@@ -147,30 +155,29 @@ public class DiscordCommandListener extends ListenerAdapter {
                         LinkedHashMap::new));
 
 
-        StringBuilder response = new StringBuilder();
-        response.append(String.format("## %s Deaths Leaderboard %s\n", SKULL_EMOJI, SKULL_EMOJI));
+        StringBuilder response = new StringBuilder(ReadConfig.getDiscordDeathsSlashCommandHeaderFormatting() + "\n");
         String firstPlaceEmoji = String.format(" %s%s%s", CROSSBONES_EMOJI, CROSSBONES_EMOJI, CROSSBONES_EMOJI);
         for (Map.Entry<UUID, Integer> entry : sortedByDeathCount.entrySet()) {
             OfflinePlayer offlinePlayer = Bukkit.getOfflinePlayer(entry.getKey());
             String playerName = offlinePlayer.getName();
             int deathCount = entry.getValue();
-            String plural = (deathCount > 1) ? "times" : "time";
-            String totalHoursPlayed = getHoursFromTicks(offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "h";
+            String plural = (deathCount > 1) ? "s" : "";
+            String totalHoursPlayed = String.valueOf(getHoursFromTicks(offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE)));
 
-            StringBuilder line = new StringBuilder();
-            line.append("- ")
-                    .append(playerName)
-                    .append(" died **")
-                    .append(deathCount)
-                    .append("** ")
-                    .append(plural)
-                    .append(firstPlaceEmoji)
-                    .append(" (")
-                    .append(totalHoursPlayed)
-                    .append(")\n");
+            // Values for the .format() method.
+            HashMap<String, String> values = new HashMap<>();
+            values.put(ReadConfig.NAME_KEY, playerName);
+            values.put(ReadConfig.DEATH_COUNT, String.valueOf(deathCount));
+            values.put(ReadConfig.PLURAL, plural);
+            values.put(ReadConfig.PLAYTIME_HOURS, totalHoursPlayed);
 
-            if (response.length() + line.length() < DiscordInterface.DISCORD_MAX_MESSAGE_LENGTH) {
-                response.append(line);
+            try {
+                String line = ReadConfig.format(ReadConfig.getDiscordDeathsSlashCommandLineFormatting(), values) + firstPlaceEmoji + "\n";
+                if (response.length() + line.length() < DiscordInterface.DISCORD_MAX_MESSAGE_LENGTH) {
+                    response.append(line);
+                }
+            } catch (Exception e) {
+                // Do nothing
             }
 
             firstPlaceEmoji = "";
