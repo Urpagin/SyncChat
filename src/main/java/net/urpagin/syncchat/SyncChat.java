@@ -20,6 +20,8 @@ public final class SyncChat extends JavaPlugin implements Listener {
     public void onEnable() {
         long startTime = System.nanoTime();
 
+        checkVersion();
+
         // Try to read in-memory the config.yml and check for values.
         // If there is a problem, we quit the plugin.
         try {
@@ -44,6 +46,22 @@ public final class SyncChat extends JavaPlugin implements Listener {
         long endTime = System.nanoTime();
 
         getLogger().info("Plugin successfully loaded in " + get_delta_rounded(startTime, endTime) + "s!");
+    }
+
+
+    private void checkVersion() {
+        String currentVersion = getDescription().getVersion();
+        VersionCheck version = new VersionCheck(currentVersion);
+
+        try {
+            if (!version.isUpToDate()) {
+                String latestVersion = version.getLatestVersion();
+                this.getLogger().warning("Newer version available! Current is v" + currentVersion + ", latest is " + latestVersion);
+            }
+        } catch (Exception e) {
+            this.getLogger().warning("Failed to fetch the latest version");
+        }
+
     }
 
     @Override

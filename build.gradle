@@ -33,6 +33,7 @@ repositories {
 dependencies {
     compileOnly 'org.spigotmc:spigot-api:1.21.4-R0.1-SNAPSHOT'
     implementation "net.dv8tion:JDA:$jdaVersion"
+    implementation "org.json:json:20240303"
     //compileOnly 'com.comphenix.protocol:ProtocolLib:5.1.0'
 }
 

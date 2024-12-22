@@ -38,9 +38,11 @@ The plugin interacts with Discord through the [JDA](https://github.com/discord-j
 - [x] Death logging in the Discord channel
 - [x] `/playing` slashcommand
 - [x] `/deaths` slashcommand
-- [ ] Version check at start: checks this repo for newer releases
+- [x] Version check at start: checks this repo for newer releases
 - [ ] MC & Discord message format customizable in config
-- [ ] Update demo video
 - [ ] Send a Discord message when a player joins (configurable toggle)
 - [ ] Send a Discord message when a player exits (configurable toggle)
-- [ ] Send a Discord message when a player earns an achievement (configurable toggle) 
+- [ ] Send a Discord message when a player earns an achievement (configurable toggle)
+- [ ] Update demo video
+- [ ] `/playing` slashcommand customizable in config
+- [ ] `/deaths` slashcommand customizable in config

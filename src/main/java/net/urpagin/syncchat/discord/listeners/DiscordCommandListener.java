@@ -39,6 +39,7 @@ public class DiscordCommandListener extends ListenerAdapter {
                 break;
             case "become_a_god":
                 handleBecomeAGod(event);
+                break;
         }
     }
 
@@ -50,6 +51,7 @@ public class DiscordCommandListener extends ListenerAdapter {
 
         if (response.length() > DiscordInterface.DISCORD_MAX_MESSAGE_LENGTH) {
             event.reply("Cannot respond: tried to send a message exceeding Discord's limit of " + DiscordInterface.DISCORD_MAX_MESSAGE_LENGTH + " characters!").queue();
+            return;
         }
 
         event.reply(response).queue();
@@ -154,7 +156,9 @@ public class DiscordCommandListener extends ListenerAdapter {
             int deathCount = entry.getValue();
             String plural = (deathCount > 1) ? "times" : "time";
             String totalHoursPlayed = getHoursFromTicks(offlinePlayer.getStatistic(Statistic.PLAY_ONE_MINUTE)) + "h";
-            response.append("- ")
+
+            StringBuilder line = new StringBuilder();
+            line.append("- ")
                     .append(playerName)
                     .append(" died **")
                     .append(deathCount)
@@ -164,6 +168,11 @@ public class DiscordCommandListener extends ListenerAdapter {
                     .append(" (")
                     .append(totalHoursPlayed)
                     .append(")\n");
+
+            if (response.length() + line.length() < DiscordInterface.DISCORD_MAX_MESSAGE_LENGTH) {
+                response.append(line);
+            }
+
             firstPlaceEmoji = "";
         }
 
